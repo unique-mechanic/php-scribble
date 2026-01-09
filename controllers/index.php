@@ -5,7 +5,7 @@ use Core\Database;
 
 // Create a new database connection using the config
 $db = new Database(
-    require base_path('config.php')['database']
+    (require base_path('config.php'))['database']
 );
 
 // CONCEPT 5: Using a function we created
