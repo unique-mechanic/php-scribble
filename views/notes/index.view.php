@@ -4,6 +4,20 @@
 
 <main>
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+        <?php if ($success) : ?>
+            <div id="success-message" class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded transition-opacity duration-500">
+                <?= htmlspecialchars($success) ?>
+            </div>
+            <script>
+                setTimeout(function() {
+                    const message = document.getElementById('success-message');
+                    if (message) {
+                        message.style.opacity = '0';
+                    }
+                }, 5000);
+            </script>
+        <?php endif; ?>
+
         <ul>
             <?php foreach ($notes as $note) : ?>
                 <li>

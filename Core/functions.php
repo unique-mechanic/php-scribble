@@ -47,8 +47,7 @@ function getRecentNotes($db, $limit = 3)
     // We're asking the database to fetch notes ordered by ID (newest first)
     
     $recentNotes = $db->query(
-        "SELECT * FROM notes ORDER BY id DESC LIMIT :limit",
-        ['limit' => $limit]
+        "SELECT * FROM notes ORDER BY id DESC LIMIT " . (int)$limit
     )->get();  // get() METHOD returns all results as an ARRAY
     
     // CONCEPT 3: Return the array so other code can use it

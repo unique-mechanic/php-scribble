@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 use Core\Database;
 use Core\Validator;
 
@@ -18,7 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'body' => $_POST['body'],
             'user_id' => 1
         ]);
+        $_SESSION['success'] = 'Note created successfully!';
+        header('Location: /notes');
+        exit();
     }
+    $_SESSION['failure'] = 'Please correct the errors below.';
+    $_SESSION['success'] = 'Note created successfully!';
+   
 }
 
 view("notes/create.view.php", [
