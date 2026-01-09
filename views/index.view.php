@@ -18,18 +18,15 @@
                 <ul class="space-y-3">
                     <?php foreach ($recentNotes as $note): ?>
                         <li class="p-4 bg-blue-50 rounded border border-blue-200">
-                            <h3 class="font-semibold text-lg">
+                            <p class="text-gray-600 text-sm">
                                 <a href="/note?id=<?= $note['id'] ?>" class="text-blue-600 hover:underline">
                                     <!-- $note is an associative array (dictionary) -->
                                     <!-- Access data with ['key'] syntax -->
-                                    <?= htmlspecialchars($note['title']) ?>
+                                    <?= htmlspecialchars(substr($note['body'], 0, 100)) ?>...
                                 </a>
-                            </h3>
-                            <p class="text-gray-600 text-sm mt-2">
-                                <?= htmlspecialchars(substr($note['body'], 0, 100)) ?>...
                             </p>
                             <p class="text-gray-400 text-xs mt-2">
-                                Created: <?= $note['created_at'] ?>
+                                Note ID: <?= $note['id'] ?> | User ID: <?= $note['user_id'] ?>
                             </p>
                         </li>
                     <?php endforeach; ?>

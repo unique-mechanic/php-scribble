@@ -44,10 +44,10 @@ function getRecentNotes($db, $limit = 3)
     
     // CONCEPT 2: Methods are functions that belong to objects
     // $db->query() is a METHOD of the Database object
-    // We're asking the database to fetch notes ordered by creation date
+    // We're asking the database to fetch notes ordered by ID (newest first)
     
     $recentNotes = $db->query(
-        "SELECT * FROM notes ORDER BY created_at DESC LIMIT :limit",
+        "SELECT * FROM notes ORDER BY id DESC LIMIT :limit",
         ['limit' => $limit]
     )->get();  // get() METHOD returns all results as an ARRAY
     
