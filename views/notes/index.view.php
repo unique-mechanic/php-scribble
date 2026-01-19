@@ -18,19 +18,21 @@
             </script>
         <?php endif; ?>
 
-        <ul>
+        <div class="space-y-2">
             <?php foreach ($notes as $note) : ?>
-                <li>
-                    <a href="/note?id=<?= $note['id'] ?>" class="text-blue-500 hover:underline">
-                        <?= htmlspecialchars($note['body']) ?>
-                    </a>
-                </li>
+                <div class="card bg-base-100 shadow-md">
+                    <div class="card-body p-4">
+                        <a href="/note?id=<?= $note['id'] ?>" class="card-title text-lg hover:text-primary">
+                            <?= htmlspecialchars($note['body']) ?>
+                        </a>
+                    </div>
+                </div>
             <?php endforeach; ?>
-        </ul>
+        </div>
 
-        <p class="mt-6">
-            <a href="/notes/create" class="text-blue-500 hover:underline">Create Note</a>
-        </p>
+        <div class="mt-6">
+            <a href="/notes/create" class="btn btn-primary">Create Note</a>
+        </div>
     </div>
 </main>
 
