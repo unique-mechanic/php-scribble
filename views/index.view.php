@@ -15,25 +15,29 @@
             <?php if (count($recentNotes) > 0): ?>
                 <!-- CONCEPT 7: Looping through arrays with foreach -->
                 <!-- Each iteration: $note contains one item from the array -->
-                <ul class="space-y-3">
+                <div class="space-y-3">
                     <?php foreach ($recentNotes as $note): ?>
-                        <li class="p-4 bg-blue-50 rounded border border-blue-200">
-                            <p class="text-gray-600 text-sm">
-                                <a href="/note?id=<?= $note['id'] ?>" class="text-blue-600 hover:underline">
+                        <div class="card bg-base-100 shadow-md">
+                            <div class="card-body p-4">
+                                <a href="/note?id=<?= $note['id'] ?>" class="card-title text-lg hover:text-primary">
                                     <!-- $note is an associative array (dictionary) -->
                                     <!-- Access data with ['key'] syntax -->
+                                    <? if (strlen($note['body']) > 100): ?>
                                     <?= htmlspecialchars(substr($note['body'], 0, 100)) ?>...
+                                    <? else: ?>
+                                    <?= htmlspecialchars($note['body']) ?>
+                                    <? endif; ?>
                                 </a>
-                            </p>
-                            <p class="text-gray-400 text-xs mt-2">
-                                Note ID: <?= $note['id'] ?> | User ID: <?= $note['user_id'] ?>
-                            </p>
-                        </li>
+                                <p class="text-gray-400 text-xs mt-2">
+                                    Note ID: <?= $note['id'] ?> | User ID: <?= $note['user_id'] ?>
+                                </p>
+                            </div>
+                        </div>
                     <?php endforeach; ?>
-                </ul>
+                </div>
             <?php else: ?>
                 <!-- If array is empty, show this message -->
-                <p class="text-gray-500">No notes yet. <a href="/notes/create" class="text-blue-600">Create one!</a></p>
+                <p class="text-gray-500">No notes yet. <a href="/notes/create" class="btn btn-sm btn-primary">Create one!</a></p>
             <?php endif; ?>
         </section>
     </div>
