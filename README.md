@@ -8,6 +8,7 @@ A modern, cyberpunk-themed note-taking application built with **PHP**, **Tailwin
 - 📝 **Create Notes** - Add new notes with a beautiful form
 - 📋 **View All Notes** - See all your notes in a grid layout
 - 👁️ **View Note Details** - Click on any note to see full content
+- ✎ **Edit Notes** - Update existing notes with ease
 - ✗ **Delete Notes** - Remove notes permanently with confirmation
 - 💬 **Success Messages** - Get feedback on your actions
 - 🎯 **Responsive Design** - Works on all screen sizes
@@ -75,7 +76,8 @@ php_project/
 │   └── notes/
 │       ├── index.php         # List all notes
 │       ├── create.php        # Create note form & logic
-│       └── show.php          # Show single note & delete
+│       ├── show.php          # Show single note & delete
+│       └── edit.php          # Edit note form & logic
 ├── Core/
 │   ├── Database.php          # Database class
 │   ├── Router.php            # Router class
@@ -86,10 +88,11 @@ php_project/
     ├── index.view.php
     ├── about.view.php
     ├── contact.view.php
-    ├── notes/
-    │   ├── index.view.php    # Notes list page
-    │   ├── create.view.php   # Create form
-    │   └── show.view.php     # Note detail page
+     ├── notes/
+     │   ├── index.view.php    # Notes list page
+     │   ├── create.view.php   # Create form
+     │   ├── show.view.php     # Note detail page
+     │   └── edit.view.php     # Edit note form
     └── partials/
         ├── head.php          # HTML head with styles
         ├── nav.php           # Navigation bar
@@ -108,6 +111,8 @@ php_project/
 | GET | `/notes/create` | `controllers/notes/create.php` | Create note form |
 | POST | `/notes/create` | `controllers/notes/create.php` | Save new note |
 | GET | `/note?id={id}` | `controllers/notes/show.php` | View single note |
+| GET | `/note/edit?id={id}` | `controllers/notes/edit.php` | Edit note form |
+| POST | `/note/edit?id={id}` | `controllers/notes/edit.php` | Update note |
 | POST | `/note?id={id}` | `controllers/notes/show.php` | Delete note |
 | GET | `/about` | `controllers/about.php` | About page |
 | GET | `/contact` | `controllers/contact.php` | Contact page |
@@ -207,7 +212,7 @@ Main branches in this project:
 ## 🚀 Future Enhancements
 
 - [ ] User authentication/login
-- [ ] Edit notes functionality
+- [x] Edit notes functionality
 - [ ] Multiple users support
 - [ ] Note categories/tags
 - [ ] Search notes
