@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 use Core\Database;
 
 $config = require base_path('config.php');
@@ -19,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'id' => $_GET['id']
     ]);
 
+    $_SESSION['success'] = 'Note deleted successfully!';
     header('location: /notes');
     exit();
 } else {
