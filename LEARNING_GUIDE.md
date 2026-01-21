@@ -1,6 +1,81 @@
 # PHP Learning Guide - Recent Notes Feature
 
-## 📚 Concepts Covered
+## � Quick Start Guide
+
+### Prerequisites
+- PHP 7.4 or higher installed
+- MySQL or MariaDB database running
+- Basic command line knowledge
+
+### Step 1: Setup the Database
+
+Create a database called `myapp`:
+
+```bash
+mysql -u root -p
+CREATE DATABASE myapp;
+USE myapp;
+```
+
+Create the notes table:
+
+```sql
+CREATE TABLE notes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    body TEXT NOT NULL,
+    user_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### Step 2: Configure the Database
+
+Edit `config.php` and update the database settings if needed:
+
+```php
+'database' => [
+    'host' => '127.0.0.1',
+    'port' => 3306,
+    'dbname' => 'myapp',
+    'charset' => 'utf8mb4'
+]
+```
+
+### Step 3: Start the Project
+
+Open a terminal and run:
+
+```bash
+cd /Users/uma/code/php_project
+php -S localhost:8000 -t public
+```
+
+The `-S` flag starts a local server
+The `-t public` flag sets the public directory as the root
+
+### Step 4: Open in Browser
+
+Go to: `http://localhost:8000`
+
+### Step 5: Stop the Server
+
+Press `Ctrl+C` in the terminal where the server is running
+
+---
+
+## ✨ Features You Can Try
+
+| Feature | URL | What It Does |
+|---------|-----|-------------|
+| Home | `http://localhost:8000/` | View recent notes (3 most recent) |
+| All Notes | `http://localhost:8000/notes` | See all your notes in a list |
+| Create Note | `http://localhost:8000/notes/create` | Create a new note |
+| View Note | Click any note | View full note content |
+| Delete Note | On note detail page | Delete a note permanently |
+
+---
+
+## �📚 Concepts Covered
 
 ### 1. **Variables** - Containers for data
 ```php
