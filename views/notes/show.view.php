@@ -25,6 +25,10 @@
         </div>
 
         <div class="flex gap-4">
+            <a href="/note/edit?id=<?= $note['id'] ?>" class="px-6 py-3 bg-cyan-900 border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-800 hover:text-cyan-300 rounded-none font-bold uppercase text-sm transition-all duration-300">
+                ✎ EDIT NOTE
+            </a>
+            
             <form method="POST" class="inline">
                 <button 
                     type="submit"
