@@ -20,7 +20,8 @@ function e($value)
 function requireAuth()
 {
     if (!Auth::isAuthenticated()) {
-        abort(401);
+        header('Location: /login');
+        exit();
     }
 
     return true;
