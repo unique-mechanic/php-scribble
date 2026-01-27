@@ -24,10 +24,14 @@
                             rows="12"
                             class="w-full bg-opacity-30 bg-gray-900 border-2 border-cyan-400 text-lime-400 placeholder-gray-600 p-4 rounded-none font-mono focus:outline-none focus:border-magenta-500 focus:ring-0 transition-colors duration-300"
                             placeholder="Enter your thoughts here... [Max 1000 characters]"
-                        ><?= $_POST['body'] ?? '' ?></textarea>
+                        ><?= e($_POST['body'] ?? '') ?></textarea>
+                        
+                        <?php if (isset($errors['csrf'])) : ?>
+                            <p class="text-red-500 text-xs mt-3 font-mono">✗ ERROR: <?= e($errors['csrf']) ?></p>
+                        <?php endif; ?>
                         
                         <?php if (isset($errors['body'])) : ?>
-                            <p class="text-red-500 text-xs mt-3 font-mono">✗ ERROR: <?= $errors['body'] ?></p>
+                            <p class="text-red-500 text-xs mt-3 font-mono">✗ ERROR: <?= e($errors['body']) ?></p>
                         <?php endif; ?>
                         
                         <div class="mt-2 text-right text-cyan-400 text-xs font-mono">
@@ -36,6 +40,9 @@
                     </div>
                 </div>
             </div>
+
+            <!-- CSRF Token -->
+            <input type="hidden" name="csrf_token" value="<?= e($csrf_token) ?>">
 
             <div class="mt-8 flex gap-4">
                 <button

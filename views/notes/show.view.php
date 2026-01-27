@@ -14,22 +14,23 @@
             <h2 class="text-2xl font-bold glow-cyan mb-4">▸ NOTE CONTENT</h2>
             <div class="border-t border-cyan-400 pt-6">
                 <p class="text-gray-300 leading-relaxed whitespace-pre-wrap">
-                    <?= htmlspecialchars($note['body']) ?>
+                    <?= e($note['body']) ?>
                 </p>
             </div>
             <div class="border-t border-cyan-400 mt-6 pt-6">
                 <p class="text-cyan-400 text-xs font-mono">
-                    [ID: <?= $note['id'] ?> | USER: <?= $note['user_id'] ?>]
+                    [ID: <?= e($note['id']) ?> | USER: <?= e($note['user_id']) ?>]
                 </p>
             </div>
         </div>
 
         <div class="flex gap-4">
-            <a href="/note/edit?id=<?= $note['id'] ?>" class="px-6 py-3 bg-cyan-900 border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-800 hover:text-cyan-300 rounded-none font-bold uppercase text-sm transition-all duration-300">
+            <a href="/note/edit?id=<?= e($note['id']) ?>" class="px-6 py-3 bg-cyan-900 border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-800 hover:text-cyan-300 rounded-none font-bold uppercase text-sm transition-all duration-300">
                 ✎ EDIT NOTE
             </a>
             
             <form method="POST" class="inline">
+                <input type="hidden" name="csrf_token" value="<?= e($csrf_token) ?>">
                 <button 
                     type="submit"
                     class="px-6 py-3 bg-red-900 border-2 border-red-500 text-red-400 hover:bg-red-800 hover:text-red-300 rounded-none font-bold uppercase text-sm transition-all duration-300"

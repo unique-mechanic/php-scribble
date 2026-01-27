@@ -15,8 +15,16 @@
                 </div>
             </div>
             <div class="hidden md:block">
-                <div class="text-cyan-400 text-xs font-mono">
-                    [SYSTEM_ONLINE]
+                <div class="flex items-center gap-4">
+                    <?php if (\Core\Auth::isAuthenticated()) : ?>
+                        <span class="text-cyan-400 text-xs font-mono">[USER: <?= e(\Core\Auth::id()) ?>]</span>
+                        <form method="POST" action="/logout" class="inline">
+                            <input type="hidden" name="csrf_token" value="<?= e(\Core\Auth::generateToken()) ?>">
+                            <button type="submit" class="text-cyan-400 hover:text-magenta-400 px-3 py-2 text-sm font-medium transition-all duration-300">▸ LOGOUT</button>
+                        </form>
+                    <?php else : ?>
+                        <a href="/login" class="text-cyan-400 hover:text-magenta-400 px-3 py-2 text-sm font-medium transition-all duration-300">▸ LOGIN</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
