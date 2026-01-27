@@ -10,4 +10,5 @@ return [
     '/note/edit' => 'controllers/notes/edit.php',
     '/notes/create' => 'controllers/notes/create.php',
     '/contact' => 'controllers/contact.php',
+    '/test' => 'controllers/test.php',
 ];

@@ -110,7 +110,9 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Feature 1 -->
                 <div class="cyber-card-red-static p-6 rounded-none">
-                    <div class="text-red-400 text-3xl mb-3">📝</div>
+                    <div class="mb-3 h-12">
+                        <img src="/Cyberpunk-Icons/SVG/Icon 4.svg" alt="Create" class="h-12 w-12" style="filter: invert(0.5) sepia(1) saturate(2) hue-rotate(-10deg);">
+                    </div>
                     <h4 class="text-red-400 font-bold mb-2 uppercase text-sm">Create Notes</h4>
                     <p class="text-gray-400 text-xs leading-relaxed">
                         Compose and store your thoughts in a secure digital vault
@@ -119,7 +121,9 @@
                 
                 <!-- Feature 2 -->
                 <div class="cyber-card-red-static p-6 rounded-none">
-                    <div class="text-red-400 text-3xl mb-3">✏️</div>
+                    <div class="mb-3 h-12">
+                        <img src="/Cyberpunk-Icons/SVG/Icon 6.svg" alt="Edit" class="h-12 w-12" style="filter: invert(0.5) sepia(1) saturate(2) hue-rotate(-10deg);">
+                    </div>
                     <h4 class="text-red-400 font-bold mb-2 uppercase text-sm">Edit & Update</h4>
                     <p class="text-gray-400 text-xs leading-relaxed">
                         Modify your notes anytime with instant synchronization
@@ -128,7 +132,9 @@
                 
                 <!-- Feature 3 -->
                 <div class="cyber-card-red-static p-6 rounded-none">
-                    <div class="text-red-400 text-3xl mb-3">🗑️</div>
+                    <div class="mb-3 h-12">
+                        <img src="/Cyberpunk-Icons/SVG/Icon 14.svg" alt="Delete" class="h-12 w-12" style="filter: invert(0.5) sepia(1) saturate(2) hue-rotate(-10deg);">
+                    </div>
                     <h4 class="text-red-400 font-bold mb-2 uppercase text-sm">Delete Notes</h4>
                     <p class="text-gray-400 text-xs leading-relaxed">
                         Remove old transmissions to keep your system clean
