@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         // Find user by email
-        $user = $db->query('SELECT id, email, password FROM users WHERE email = :email', [
+        $user = $db->query('SELECT id, email, password FROM Users WHERE email = :email', [
             'email' => $email
         ])->find();
 

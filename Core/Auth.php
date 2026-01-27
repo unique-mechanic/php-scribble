@@ -29,7 +29,7 @@ class Auth
             return null;
         }
 
-        return $db->query('SELECT id, email FROM users WHERE id = :id', [
+        return $db->query('SELECT id, email FROM Users WHERE id = :id', [
             'id' => self::id()
         ])->find();
     }
