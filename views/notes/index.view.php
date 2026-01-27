@@ -6,7 +6,7 @@
     <div class="mx-auto w-full max-w-7xl py-4">
         <?php if ($success) : ?>
             <div id="success-message" class="mb-6 p-4 border-2 border-lime-400 bg-opacity-10 bg-lime-900 text-lime-400 rounded-none transition-opacity duration-500 font-mono text-sm">
-                ✓ <?= htmlspecialchars($success) ?>
+                ✓ <?= e($success) ?>
             </div>
             <script>
                 setTimeout(function() {
@@ -96,7 +96,7 @@
 
                                     <!-- Preview -->
                                     <p class="text-xs text-gray-400 line-clamp-2 mb-4">
-                                        <?= htmlspecialchars(substr($note['body'], 0, 80)) ?>...
+                                        <?= e(substr($note['body'], 0, 80)) ?>...
                                     </p>
 
                                     <!-- Stats Bar -->
@@ -107,7 +107,7 @@
                                         </div>
                                         <div class="flex justify-between items-center">
                                             <span class="skill-stat">USER</span>
-                                            <span class="skill-stat-value"><?= $note['user_id'] ?></span>
+                                            <span class="skill-stat-value"><?= e($note['user_id']) ?></span>
                                         </div>
                                         
                                         <!-- Progress Bar -->

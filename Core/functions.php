@@ -1,6 +1,7 @@
 <?php
 
 use Core\Response;
+use Core\Auth;
 
 function dd($value)
 {
@@ -9,6 +10,20 @@ function dd($value)
     echo "</pre>";
 
     die();
+}
+
+function e($value)
+{
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+}
+
+function requireAuth()
+{
+    if (!Auth::isAuthenticated()) {
+        abort(401);
+    }
+
+    return true;
 }
 
 function urlIs($value)

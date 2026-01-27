@@ -24,10 +24,14 @@
                             rows="12"
                             class="w-full bg-opacity-30 bg-gray-900 border-2 border-cyan-400 text-lime-400 placeholder-gray-600 p-4 rounded-none font-mono focus:outline-none focus:border-magenta-500 focus:ring-0 transition-colors duration-300"
                             placeholder="Edit your note... [Max 1000 characters]"
-                        ><?= htmlspecialchars($_POST['body'] ?? $note['body']) ?></textarea>
+                        ><?= e($_POST['body'] ?? $note['body']) ?></textarea>
+                        
+                        <?php if (isset($errors['csrf'])) : ?>
+                            <p class="text-red-500 text-xs mt-3 font-mono">✗ ERROR: <?= e($errors['csrf']) ?></p>
+                        <?php endif; ?>
                         
                         <?php if (isset($errors['body'])) : ?>
-                            <p class="text-red-500 text-xs mt-3 font-mono">✗ ERROR: <?= $errors['body'] ?></p>
+                            <p class="text-red-500 text-xs mt-3 font-mono">✗ ERROR: <?= e($errors['body']) ?></p>
                         <?php endif; ?>
                         
                         <div class="mt-2 text-right text-cyan-400 text-xs font-mono">
@@ -37,6 +41,9 @@
                 </div>
             </div>
 
+            <!-- CSRF Token -->
+            <input type="hidden" name="csrf_token" value="<?= e($csrf_token) ?>">
+
             <div class="mt-8 flex gap-4">
                 <button
                     type="submit"
@@ -44,7 +51,7 @@
                 >
                     ➜ SAVE CHANGES
                 </button>
-                <a href="/note?id=<?= $note['id'] ?>" class="px-8 py-3 border-2 border-gray-600 text-gray-400 hover:border-cyan-400 hover:text-cyan-400 rounded-none transition-all duration-300 font-bold uppercase text-sm">
+                <a href="/note?id=<?= e($note['id']) ?>" class="px-8 py-3 border-2 border-gray-600 text-gray-400 hover:border-cyan-400 hover:text-cyan-400 rounded-none transition-all duration-300 font-bold uppercase text-sm">
                     ◄ CANCEL
                 </a>
             </div>
