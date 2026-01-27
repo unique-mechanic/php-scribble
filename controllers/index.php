@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // CONCEPT 4: Create instances - new Database object
 use Core\Database;
 
