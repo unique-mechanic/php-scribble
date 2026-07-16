@@ -1,16 +1,20 @@
 <?php
 
-const BASE_PATH = __DIR__.'/../';
+use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 
-require BASE_PATH.'Core/functions.php';
+define('LARAVEL_START', microtime(true));
 
-spl_autoload_register(function ($class) {
-    // Core\Database
-    $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+// Determine if the application is in maintenance mode...
+if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
+    require $maintenance;
+}
 
-    require base_path("{$class}.php");
-});
+// Register the Composer autoloader...
+require __DIR__.'/../vendor/autoload.php';
 
-require base_path('Core/router.php');
+// Bootstrap Laravel and handle the request...
+/** @var Application $app */
+$app = require_once __DIR__.'/../bootstrap/app.php';
 
-
+$app->handleRequest(Request::capture());

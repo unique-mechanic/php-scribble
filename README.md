@@ -1,244 +1,58 @@
-# CyberNotes - Futuristic Note Taking App 🌆
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-A modern, cyberpunk-themed note-taking application built with **PHP**, **Tailwind CSS**, and **DaisyUI**.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## 🎨 Features
+## About Laravel
 
-- ✨ **Futuristic Cyberpunk UI** - Neon colors, glowing effects, terminal-like design
-- 📝 **Create Notes** - Add new notes with a beautiful form
-- 📋 **View All Notes** - See all your notes in a grid layout
-- 👁️ **View Note Details** - Click on any note to see full content
-- ✎ **Edit Notes** - Update existing notes with ease
-- ✗ **Delete Notes** - Remove notes permanently with confirmation
-- 💬 **Success Messages** - Get feedback on your actions
-- 🎯 **Responsive Design** - Works on all screen sizes
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
----
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-## 🚀 Quick Start
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-### Prerequisites
-- **PHP** 7.4 or higher
-- **MySQL** or **MariaDB**
-- **Composer** (optional, for dependency management)
+## Learning Laravel
 
-### Installation
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-**1. Clone or navigate to the project**
+In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-```bash
-cd /Users/uma/code/php_project
-```
+You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
 
-**2. Create the database**
+## Agentic Development
 
-```bash
-mysql -u root -p
-CREATE DATABASE myapp;
-USE myapp;
-
-CREATE TABLE notes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    body TEXT NOT NULL,
-    user_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
-**3. Start the PHP server**
+Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
 
 ```bash
-php -S localhost:8000 -t public
+composer require laravel/boost --dev
+
+php artisan boost:install
 ```
 
-**4. Open in browser**
+Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
 
-Go to: `http://localhost:8000`
+## Contributing
 
-**5. Stop the server**
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-Press `Ctrl+C` in your terminal
+## Code of Conduct
 
----
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## 📂 Project Structure
+## Security Vulnerabilities
 
-```
-php_project/
-├── config.php                 # Database configuration
-├── routes.php                 # Route definitions
-├── public/
-│   └── index.php             # Entry point
-├── controllers/
-│   ├── index.php
-│   ├── about.php
-│   ├── contact.php
-│   └── notes/
-│       ├── index.php         # List all notes
-│       ├── create.php        # Create note form & logic
-│       ├── show.php          # Show single note & delete
-│       └── edit.php          # Edit note form & logic
-├── Core/
-│   ├── Database.php          # Database class
-│   ├── Router.php            # Router class
-│   ├── Validator.php         # Validation class
-│   ├── Response.php          # Response handling
-│   └── functions.php         # Helper functions
-└── views/
-    ├── index.view.php
-    ├── about.view.php
-    ├── contact.view.php
-     ├── notes/
-     │   ├── index.view.php    # Notes list page
-     │   ├── create.view.php   # Create form
-     │   ├── show.view.php     # Note detail page
-     │   └── edit.view.php     # Edit note form
-    └── partials/
-        ├── head.php          # HTML head with styles
-        ├── nav.php           # Navigation bar
-        ├── banner.php        # Page header
-        └── footer.php        # Footer
-```
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
----
+## License
 
-## 🛣️ Routes
-
-| Method | Route | Controller | Description |
-|--------|-------|-----------|-------------|
-| GET | `/` | `controllers/index.php` | Homepage with recent notes |
-| GET | `/notes` | `controllers/notes/index.php` | All notes list |
-| GET | `/notes/create` | `controllers/notes/create.php` | Create note form |
-| POST | `/notes/create` | `controllers/notes/create.php` | Save new note |
-| GET | `/note?id={id}` | `controllers/notes/show.php` | View single note |
-| GET | `/note/edit?id={id}` | `controllers/notes/edit.php` | Edit note form |
-| POST | `/note/edit?id={id}` | `controllers/notes/edit.php` | Update note |
-| POST | `/note?id={id}` | `controllers/notes/show.php` | Delete note |
-| GET | `/about` | `controllers/about.php` | About page |
-| GET | `/contact` | `controllers/contact.php` | Contact page |
-
----
-
-## 💻 How It Works
-
-### Creating a Note
-
-1. User goes to `/notes/create`
-2. Form displays (handled by `controllers/notes/create.php`)
-3. User fills in note body and clicks "TRANSMIT NOTE"
-4. Controller validates the input
-5. If valid, note is saved to database
-6. Success message is stored in session
-7. User is redirected to `/notes`
-8. Success message displays for 5 seconds
-
-### Deleting a Note
-
-1. User clicks "DELETE NOTE" on a note detail page
-2. JavaScript confirmation dialog appears
-3. If user confirms, form is submitted via POST
-4. Controller validates user owns the note
-5. Note is deleted from database
-6. Success message is stored in session
-7. User is redirected to `/notes`
-
----
-
-## 🎓 Learning Concepts
-
-This project demonstrates:
-
-- **PHP Basics** - Variables, functions, classes
-- **Database** - MySQL queries, PDO
-- **MVC Architecture** - Controllers, Views, Models
-- **Routing** - URL routing and request handling
-- **Sessions** - Storing user data across requests
-- **Form Handling** - POST/GET requests
-- **Validation** - Input validation
-- **Templating** - PHP as a template engine
-
-For detailed learning guide, see [LEARNING_GUIDE.md](LEARNING_GUIDE.md)
-
----
-
-## 🌈 Styling
-
-The app uses:
-
-- **Tailwind CSS** - Utility-first CSS framework
-- **DaisyUI** - Component library for Tailwind
-- **Custom Cyberpunk Theme** - Neon colors, glowing effects
-- **Fonts** - Orbitron (headings), Space Mono (body)
-
----
-
-## 🔧 Troubleshooting
-
-### Database connection error
-
-Make sure MySQL is running and config.php has correct credentials:
-
-```php
-'host' => '127.0.0.1',
-'port' => 3306,
-'dbname' => 'myapp'
-```
-
-### Port 8000 already in use
-
-Use a different port:
-
-```bash
-php -S localhost:8001 -t public
-```
-
-### Permissions error
-
-Make sure you have read/write permissions in the project directory
-
----
-
-## 📝 Git Branches
-
-Main branches in this project:
-
-- `main` - Stable version with all features
-- `add-daisyui` - Added DaisyUI styling
-- `improve-ui-styling` - Cyberpunk UI overhaul
-- `add-delete-note` - Delete functionality
-
----
-
-## 🚀 Future Enhancements
-
-- [ ] User authentication/login
-- [x] Edit notes functionality
-- [ ] Multiple users support
-- [ ] Note categories/tags
-- [ ] Search notes
-- [ ] Export notes to PDF
-- [ ] Dark/Light theme toggle
-
----
-
-## 📄 License
-
-This project is for learning purposes.
-
----
-
-## 🤝 Contributing
-
-This is a learning project. Feel free to fork and experiment!
-
----
-
-## 💡 Tips for Learning
-
-1. **Read the code** - Understand what each file does
-2. **Modify it** - Change things and see what breaks
-3. **Add features** - Try implementing new features
-4. **Debug** - Use `var_dump()` or `dd()` to inspect data
-5. **Read errors** - Error messages tell you what's wrong
-
-Happy coding! 🚀
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

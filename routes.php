@@ -4,7 +4,7 @@ return [
     '/' => 'controllers/index.php',
     '/red' => 'controllers/index-red.php',
     '/about' => 'controllers/about.php',
-    '/about/red' => 'controllers/about-red.php',
+    '/about/red' => 'controllers/about-red.php',1
     '/login' => 'controllers/auth/login.php',
     '/logout' => 'controllers/auth/logout.php',
     '/notes' => 'controllers/notes/index.php',
