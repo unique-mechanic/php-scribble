@@ -24,6 +24,28 @@
                         <p class="text-pink-400 text-xs font-mono mt-2">⚠ {{ $message }}</p>
                     @enderror
                 </div>
+                <div class="mb-6">
+                    <label class="skill-stat block mb-2">▸ TAGS (Optional)</label>
+                    <div class="cyber-input p-4 rounded-none bg-gray-900 border-2 border-cyan-600">
+                        @if($tags->count())
+                            <div class="space-y-2">
+                                @foreach($tags as $tag)
+                                    <label class="flex items-center cursor-pointer hover:text-cyan-400 transition-colors">
+                                        <input 
+                                            type="checkbox" 
+                                            name="tags[]" 
+                                            value="{{ $tag->id }}"
+                                            class="w-4 h-4 mr-3"
+                                        >
+                                        <span class="font-mono text-sm">{{ $tag->name }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="text-gray-500 text-sm font-mono">No tags yet. Create one in your profile.</p>
+                        @endif
+                    </div>
+                </div>
                 <div class="flex gap-4">
                     <button type="submit" class="btn-cyber px-6 py-3 rounded-none flex-1">➜ TRANSMIT NOTE</button>
                     <a href="{{ route('notes.index') }}" class="px-6 py-3 rounded-none border-2 border-gray-600 text-gray-400 hover:border-cyan-400 hover:text-cyan-400 transition-all text-center">✕ CANCEL</a>

@@ -57,4 +57,29 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    
+    /**
+     * Store a new tag for the user
+     */
+    public function storeTag(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => 'required|string|max:50|unique:tags,name,NULL,id,user_id,' . Auth::id(),
+        ]);
+    
+        Auth::user()->tags()->create(['name' => $request->name]);
+    
+        return Redirect::route('profile.edit')->with('status', 'tag-created');
+    }
+    
+    /**
+     * Delete a tag for the user
+     */
+    public function destroyTag(Request $request, $tagId): RedirectResponse
+    {
+        $tag = Auth::user()->tags()->findOrFail($tagId);
+        $tag->delete();
+    
+        return Redirect::route('profile.edit')->with('status', 'tag-deleted');
+    }
 }
