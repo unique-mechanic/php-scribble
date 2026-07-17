@@ -16,17 +16,23 @@ class NoteController extends Controller
 
     public function create()
     {
-        return view('notes.create');
+        $tags = Auth::user()->tags;
+        return view('notes.create', compact('tags'));
     }
 
     public function store(Request $request)
     {
         $request->validate(['body' => 'required|string|min:1']);
 
-        Note::create([
+        $note = Note::create([
             'body'    => $request->body,
             'user_id' => Auth::id(),
         ]);
+
+        // Sync tags (if any were selected)
+        if ($request->has('tags')) {
+            $note->tags()->sync($request->tags);
+        }
 
         return redirect()->route('notes.index')->with('success', 'Note created successfully!');
     }
@@ -40,7 +46,8 @@ class NoteController extends Controller
     public function edit(Note $note)
     {
         abort_if($note->user_id !== Auth::id(), 403);
-        return view('notes.edit', compact('note'));
+        $tags = Auth::user()->tags;
+        return view('notes.edit', compact('note', 'tags'));
     }
 
     public function update(Request $request, Note $note)
@@ -49,6 +56,11 @@ class NoteController extends Controller
         $request->validate(['body' => 'required|string|min:1']);
 
         $note->update(['body' => $request->body]);
+
+        // Sync tags (if any were selected)
+        if ($request->has('tags')) {
+            $note->tags()->sync($request->tags);
+        }
 
         return redirect()->route('notes.show', $note)->with('success', 'Note updated successfully!');
     }
