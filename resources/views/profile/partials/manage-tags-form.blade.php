@@ -14,8 +14,8 @@
         @csrf
 
         <div>
-            <x-input-label for="name" :value="__('Tag Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" placeholder="e.g., Important, Work, Personal" required />
+            <x-input-label for="tag-name" :value="__('Tag Name')" />
+            <x-text-input id="tag-name" name="name" type="text" class="mt-1 block w-full" placeholder="e.g., Eloquent, Debugging, PHP" required />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
@@ -23,7 +23,7 @@
             <x-primary-button>{{ __('Create Tag') }}</x-primary-button>
 
             @if (session('status') === 'tag-created')
-                <p x-data="{ show: true }" x-show="show" x-transition x-transition.out="fade" @click="show = false" class="text-sm text-gray-600 dark:text-gray-400">{{ __('Tag created successfully.') }}</p>
+                <p x-data="{ show: true }" x-show="show" x-transition x-transition.out="fade" @click="show = false" class="text-sm text-gray-600">{{ __('Tag created successfully.') }}</p>
             @endif
         </div>
     </form>
@@ -35,7 +35,7 @@
             <div class="space-y-2">
                 @foreach (Auth::user()->tags as $tag)
                     <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                        <span class="text-gray-700 font-mono">{{ $tag->name }}</span>
+                        <span class="text-gray-700 ">{{ $tag->name }}</span>
                         <form method="post" action="{{ route('tags.destroy', $tag->id) }}" class="inline">
                             @csrf
                             @method('delete')

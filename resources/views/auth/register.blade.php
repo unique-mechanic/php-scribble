@@ -1,39 +1,14 @@
 <x-guest-layout>
-    <h2 class="text-xl font-bold mb-6" style="font-family:'Orbitron',sans-serif;color:#ff006e;text-shadow:0 0 10px #ff006e;">▸ CREATE ACCOUNT</h2>
-
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <div class="mb-4">
-            <label class="cyber-label block mb-1">▸ NAME</label>
-            <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus
-                class="cyber-input block w-full px-4 py-2" />
-            @error('name')<p class="text-pink-400 text-xs font-mono mt-1">⚠ {{ $message }}</p>@enderror
-        </div>
-
-        <div class="mb-4">
-            <label class="cyber-label block mb-1">▸ EMAIL</label>
-            <input id="email" type="email" name="email" value="{{ old('email') }}" required
-                class="cyber-input block w-full px-4 py-2" />
-            @error('email')<p class="text-pink-400 text-xs font-mono mt-1">⚠ {{ $message }}</p>@enderror
-        </div>
-
-        <div class="mb-4">
-            <label class="cyber-label block mb-1">▸ PASSWORD</label>
-            <input id="password" type="password" name="password" required
-                class="cyber-input block w-full px-4 py-2" />
-            @error('password')<p class="text-pink-400 text-xs font-mono mt-1">⚠ {{ $message }}</p>@enderror
-        </div>
-
-        <div class="mb-6">
-            <label class="cyber-label block mb-1">▸ CONFIRM PASSWORD</label>
-            <input id="password_confirmation" type="password" name="password_confirmation" required
-                class="cyber-input block w-full px-4 py-2" />
-        </div>
-
-        <div class="flex items-center justify-between">
-            <a href="{{ route('login') }}" class="text-cyan-400 hover:text-pink-400 text-xs transition-all">Already registered?</a>
-            <button type="submit" class="btn-cyber px-6 py-2 rounded-none">➜ REGISTER</button>
-        </div>
-    </form>
+<p class="eyebrow">Your next chapter</p>
+<h1 class="auth-title">Make room for ideas.</h1>
+<p class="muted mb-6">Create your account and start your notebook.</p>
+<x-auth-session-status class="mb-4" :status="session('status')" />
+<form method="POST" action="{{ route('register') }}">
+@csrf
+<div class="mb-4"><x-input-label for="name" value="Name" /><x-text-input id="name" name="name" type="text" autocomplete="name" class="block mt-1 w-full" :value="old('name')" required autofocus /><x-input-error :messages="$errors->get('name')" class="mt-2" /></div>
+<div class="mb-4"><x-input-label for="email" value="Email" /><x-text-input id="email" name="email" type="email" autocomplete="email" class="block mt-1 w-full" :value="old('email')" required /><x-input-error :messages="$errors->get('email')" class="mt-2" /></div>
+<div class="mb-4"><x-input-label for="password" value="Password" /><x-text-input id="password" name="password" type="password" autocomplete="new-password" class="block mt-1 w-full" required /><x-input-error :messages="$errors->get('password')" class="mt-2" /></div>
+<div class="mb-4"><x-input-label for="password_confirmation" value="Confirm password" /><x-text-input id="password_confirmation" name="password_confirmation" type="password" autocomplete="new-password" class="block mt-1 w-full" required /><x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" /></div>
+<button class="button w-full" type="submit">Create account</button></form>
+<p class="auth-switch">Already have an account? <a class="text-link" href="{{ route('login') }}">Log in</a></p>
 </x-guest-layout>

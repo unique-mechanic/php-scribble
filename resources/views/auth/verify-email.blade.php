@@ -1,4 +1,7 @@
 <x-guest-layout>
+<p class="eyebrow">Your workspace</p>
+<h1 class="auth-title">You’re almost there.</h1>
+<p class="muted mb-6">Verify your email to finish setting up your workspace.</p>
     <div class="mb-4 text-sm text-gray-600">
         {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
     </div>

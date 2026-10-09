@@ -1,4 +1,7 @@
 <x-guest-layout>
+<p class="eyebrow">Your workspace</p>
+<h1 class="auth-title">Find your way back.</h1>
+<p class="muted mb-6">Get a link to reset your password.</p>
     <div class="mb-4 text-sm text-gray-600">
         {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
     </div>

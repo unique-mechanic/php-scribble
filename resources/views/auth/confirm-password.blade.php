@@ -1,4 +1,7 @@
 <x-guest-layout>
+<p class="eyebrow">Your workspace</p>
+<h1 class="auth-title">One quick check.</h1>
+<p class="muted mb-6">Confirm your password to continue.</p>
     <div class="mb-4 text-sm text-gray-600">
         {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
     </div>
