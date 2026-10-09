@@ -1,4 +1,7 @@
 <x-guest-layout>
+<p class="eyebrow">Your workspace</p>
+<h1 class="auth-title">A fresh start.</h1>
+<p class="muted mb-6">Choose a new password for your workspace.</p>
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
 

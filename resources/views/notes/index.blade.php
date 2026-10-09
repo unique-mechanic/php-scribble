@@ -1,130 +1,33 @@
-@extends('layouts.cyber')
-@section('title', 'Note Database')
-
+@extends('layouts.notebook')
+@section('title', 'My notes')
 @section('content')
-<main class="scanlines grid-lines min-h-screen">
-    <div class="mx-auto w-full max-w-7xl py-4 px-4">
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 h-full">
 
-            {{-- LEFT SIDEBAR --}}
-            <div class="skills-sidebar rounded-none lg:col-span-1 p-4">
-                <div class="mb-6">
-                    <h3 class="text-cyan-400 text-xs font-bold uppercase tracking-widest mb-3">▸ NOTE STATS</h3>
-                    <div class="space-y-3">
-                        <div class="total-stats p-3 rounded-none">
-                            <div class="skill-stat">Total Notes</div>
-                            <div class="text-2xl font-bold glow-cyan">{{ count($notes) }}</div>
-                        </div>
-                        <div class="total-stats p-3 rounded-none">
-                            <div class="skill-stat">Total Characters</div>
-                            <div class="text-2xl font-bold glow-cyan">{{ $notes->sum(fn($n) => strlen($n->body)) }}</div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="border-t border-cyan-400 pt-4">
-                    <h3 class="text-cyan-400 text-xs font-bold uppercase tracking-widest mb-4">▸ CATEGORIES</h3>
-                    <div class="space-y-2">
-                        <div class="skill-category active" onclick="filterNotes('all')">
-                            <span class="text-cyan-400 font-bold">ALL NOTES</span>
-                            <div class="skill-bar"><div class="skill-bar-fill" style="width:100%"></div></div>
-                        </div>
-                        <div class="skill-category" onclick="filterNotes('short')">
-                            <span class="text-gray-400">SHORT (&lt;50)</span>
-                            <div class="skill-bar"><div class="skill-bar-fill" style="width:{{ $notes->count() > 0 ? $notes->filter(fn($n) => strlen($n->body) < 50)->count() / $notes->count() * 100 : 0 }}%"></div></div>
-                        </div>
-                        <div class="skill-category" onclick="filterNotes('medium')">
-                            <span class="text-gray-400">MEDIUM (50-200)</span>
-                            <div class="skill-bar"><div class="skill-bar-fill" style="width:{{ $notes->count() > 0 ? $notes->filter(fn($n) => strlen($n->body) >= 50 && strlen($n->body) <= 200)->count() / $notes->count() * 100 : 0 }}%"></div></div>
-                        </div>
-                        <div class="skill-category" onclick="filterNotes('long')">
-                            <span class="text-gray-400">LONG (&gt;200)</span>
-                            <div class="skill-bar"><div class="skill-bar-fill" style="width:{{ $notes->count() > 0 ? $notes->filter(fn($n) => strlen($n->body) > 200)->count() / $notes->count() * 100 : 0 }}%"></div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-6 pt-4 border-t border-cyan-400">
-                    <a href="{{ route('notes.create') }}" class="btn-cyber px-4 py-2 rounded-none w-full text-center block text-sm">
-                        ➜ NEW NOTE
-                    </a>
-                </div>
-            </div>
-
-            {{-- NOTES GRID --}}
-            <div class="lg:col-span-3 pr-4">
-                <div class="mb-4">
-                    <h2 class="text-3xl font-bold glow-magenta mb-2">▸ NOTE DATABASE</h2>
-                    <div class="h-1 w-40 bg-gradient-to-r from-pink-600 to-transparent"></div>
-                </div>
-
-                @if($notes->count() > 0)
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="notes-container">
-                    @foreach($notes as $note)
-                    <a href="{{ route('notes.show', $note) }}" class="group note-card" data-length="{{ strlen($note->body) }}">
-                        <div class="skill-card p-6 rounded-none h-full">
-                            <div class="flex items-start justify-between mb-4">
-                                <h3 class="text-sm glow-cyan group-hover:text-pink-400 transition-all duration-300 line-clamp-2 flex-1">
-                                    ▸ {{ Str::limit($note->body, 45) }}
-                                </h3>
-                                <span class="skill-stat ml-2 flex-shrink-0">ID{{ $note->id }}</span>
-                            </div>
-                            <p class="text-xs text-gray-400 line-clamp-2 mb-4">{{ Str::limit($note->body, 80) }}...</p>
-                            <div class="border-t border-cyan-400 pt-3 space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <span class="skill-stat">LENGTH</span>
-                                    <span class="skill-stat-value">{{ strlen($note->body) }} CH</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="skill-stat">CREATED</span>
-                                    <span class="skill-stat-value text-xs">{{ $note->created_at->format('d M Y') }}</span>
-                                </div>
-                                <div class="skill-bar mt-3">
-                                    <div class="skill-bar-fill" style="width:{{ min(strlen($note->body) / 10, 100) }}%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    @endforeach
-                </div>
-                @else
-                <div class="skill-card p-8 rounded-none text-center neon-border">
-                    <p class="text-cyan-400 mb-4 font-mono text-lg">[NO DATA DETECTED]</p>
-                    <p class="text-gray-400 mb-6">The database is empty. Create your first note to begin.</p>
-                    <a href="{{ route('notes.create') }}" class="btn-cyber px-8 py-3 rounded-none inline-block">➜ CREATE FIRST NOTE</a>
-                </div>
-                @endif
-            </div>
-        </div>
-    </div>
-</main>
-
-@push('scripts')
-<script>
-function filterNotes(category) {
-    const cards = document.querySelectorAll('.note-card');
-    const cats  = document.querySelectorAll('.skill-category');
-    cats.forEach((c, i) => {
-        c.classList.remove('active');
-        if ((category==='all'&&i===0)||(category==='short'&&i===1)||(category==='medium'&&i===2)||(category==='long'&&i===3)) c.classList.add('active');
-    });
-    let visible = 0;
-    cards.forEach(card => {
-        const len = parseInt(card.dataset.length);
-        const show = category==='all' || (category==='short'&&len<50) || (category==='medium'&&len>=50&&len<=200) || (category==='long'&&len>200);
-        card.style.display = show ? 'block' : 'none';
-        if(show) visible++;
-    });
-    const container = document.getElementById('notes-container');
-    const existing  = document.getElementById('no-match-msg');
-    if(!visible && container && !existing) {
-        const msg = document.createElement('div');
-        msg.id = 'no-match-msg';
-        msg.className = 'skill-card p-8 rounded-none text-center neon-border col-span-full';
-        msg.innerHTML = '<p class="text-cyan-400 font-mono">[NO NOTES IN THIS CATEGORY]</p>';
-        container.appendChild(msg);
-    } else if(visible && existing) existing.remove();
-}
-</script>
-@endpush
+<section aria-label="Your notes">
+<div class="library-heading"><div><p class="eyebrow">Your personal knowledge base</p><h1>A place for your next <span>aha.</span></h1><p class="muted">Capture the small things that make you a better builder.</p></div><a class="button new-note-button" href="{{ route('notes.create') }}"><span aria-hidden="true">+</span> New note</a></div>
+<div class="capture-strip"><div class="capture-label"><span class="capture-dot"></span> Start with an idea</div><a href="{{ route('notes.create', ['type'=>'concept']) }}"><span aria-hidden="true">{ }</span> Explain a concept <span class="capture-arrow">↗</span></a><a href="{{ route('notes.create', ['type'=>'howto']) }}"><span aria-hidden="true">↳</span> Write a how-to <span class="capture-arrow">↗</span></a><a href="{{ route('notes.create', ['type'=>'solution']) }}"><span aria-hidden="true">⌘</span> Save a solution <span class="capture-arrow">↗</span></a></div>
+<form class="library-search" method="GET" action="{{ route('notes.index') }}">
+<div class="library-search-row"><div class="search-input-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><label class="sr-only" for="q">Find something useful</label><input class="text-field w-full" id="q" name="q" value="{{ $filters['q'] ?? '' }}" placeholder="Search your knowledge…" maxlength="200"></div><button class="button-secondary" type="submit">Search</button></div>
+<details class="library-filters" @if(collect($filters)->except('q')->filter(fn($value) => $value !== null && $value !== '')->isNotEmpty()) open @endif><summary><span aria-hidden="true">≡</span> Filters <span class="filter-hint">Notebook, tag, type & status</span></summary>
+<div class="search-filters">
+<div><label class="field-label" for="notebook">Notebook</label><select class="text-field w-full" name="notebook" id="notebook"><option value="">All notebooks</option><option value="0" @selected(isset($filters['notebook']) && $filters['notebook'] == 0)>Without a notebook</option>@foreach($notebooks as $notebook)<option value="{{ $notebook->id }}" @selected(($filters['notebook'] ?? '') == $notebook->id)>{{ $notebook->name }}</option>@endforeach</select></div>
+<div><label class="field-label" for="tag">Tag</label><select class="text-field w-full" name="tag" id="tag"><option value="">All tags</option>@foreach($tags as $tag)<option value="{{ $tag->id }}" @selected(($filters['tag'] ?? '') == $tag->id)>{{ $tag->name }}</option>@endforeach</select></div>
+<div><label class="field-label" for="type">Note type</label><select class="text-field w-full" name="type" id="type"><option value="">All types</option>@foreach(\App\Models\Note::TYPES as $value => $label)<option value="{{ $value }}" @selected(($filters['type'] ?? '') === $value)>{{ $label }}</option>@endforeach</select></div>
+<div><label class="field-label" for="status">Learning status</label><select class="text-field w-full" name="status" id="status"><option value="">All notes</option>@foreach(\App\Models\Note::STATUSES as $value => $label)<option value="{{ $value }}" @selected(($filters['status'] ?? '') === $value)>{{ $label }}</option>@endforeach</select></div>
+</div>
+</details>
+@if($errors->any())<p class="field-error">{{ $errors->first() }}</p>@endif
+</form>
+<div class="library-results"><div><h2>{{ empty($filters) ? 'Your notes' : 'Search results' }}</h2><span>{{ $notes->total() }} {{ Str::plural('note', $notes->total()) }} found</span></div>@if(!empty($filters))<a class="text-link text-sm" href="{{ route('notes.index') }}">Clear filters</a>@else<span class="sort-caption">Latest first <span aria-hidden="true">↓</span></span>@endif</div>
+@if($notes->isNotEmpty())
+<div class="notes-grid">
+@foreach($notes as $note)
+<a class="note-card library-card" data-kind="{{ $note->type }}" href="{{ route('notes.show', $note) }}"><div class="card-topline"><span class="card-symbol" aria-hidden="true">{{ ["note" => "✎", "concept" => "{ }", "howto" => "↳", "solution" => "⌘"][$note->type] ?? "✎" }}</span><span class="note-kind">{{ \App\Models\Note::TYPES[$note->type] ?? 'Free note' }}</span><span class="note-date mb-0">{{ $note->created_at?->format('j M Y') ?? 'Date unavailable' }}</span></div><h2>{{ $note->title ?: Str::limit($note->body, 65) }}</h2><p class="note-preview">{{ Str::limit($note->body, 150) }}</p><div class="sample-tags mb-5">@foreach($note->tags as $tag)<span class="tag">{{ $tag->name }}</span>@endforeach</div><span class="note-bottom"><span>{{ $note->notebook?->name ?? 'Unfiled' }}</span><span class="card-status">{{ $note->status === "learning" ? "Learning" : "Reference" }} <span aria-hidden="true">↗</span></span></span></a>
+@endforeach
+</div>
+<div class="mt-8">{{ $notes->links() }}</div>
+@else
+<div class="surface empty-state"><span class="empty-mark" aria-hidden="true">✎</span><h2>{{ $hasNotes ? 'Nothing matches just yet.' : 'Your next idea starts here.' }}</h2><p class="muted">{{ $hasNotes ? 'Try a different search or clear your filters.' : 'Save an explanation, a useful how-to, or a solution you want to remember.' }}</p>@if($hasNotes)<a class="button-secondary mt-6" href="{{ route('notes.index') }}">Clear filters</a>@else<a class="button mt-6" href="{{ route('notes.create') }}">Write your first note</a>@endif</div>
+@endif
+</section>
 @endsection

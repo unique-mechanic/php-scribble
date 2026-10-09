@@ -1,44 +1,12 @@
-@extends('layouts.cyber')
-@section('title', 'View Note')
-
+@extends('layouts.notebook')
+@section('title', $note->title ?: 'Read note')
 @section('content')
-<main class="scanlines grid-lines min-h-screen">
-    <div class="mx-auto max-w-3xl py-12 px-4">
-        <div class="mb-6 flex items-center justify-between">
-            <div>
-                <h2 class="text-3xl font-bold glow-magenta mb-2">▸ NOTE #{{ $note->id }}</h2>
-                <div class="h-1 w-40 bg-gradient-to-r from-pink-600 to-transparent"></div>
-            </div>
-            <a href="{{ route('notes.index') }}" class="text-cyan-400 hover:text-pink-400 text-sm transition-all">← BACK</a>
-        </div>
-
-        <div class="skill-card p-8 rounded-none mb-6">
-            <p class="text-green-400 font-mono leading-relaxed whitespace-pre-wrap">{{ $note->body }}</p>
-
-            <div class="border-t border-cyan-400 mt-6 pt-4 grid grid-cols-3 gap-4 text-xs">
-                <div>
-                    <div class="skill-stat">LENGTH</div>
-                    <div class="skill-stat-value">{{ strlen($note->body) }} chars</div>
-                </div>
-                <div>
-                    <div class="skill-stat">CREATED</div>
-                    <div class="skill-stat-value">{{ $note->created_at->format('d M Y') }}</div>
-                </div>
-                <div>
-                    <div class="skill-stat">UPDATED</div>
-                    <div class="skill-stat-value">{{ $note->updated_at->format('d M Y') }}</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex gap-4">
-            <a href="{{ route('notes.edit', $note) }}" class="btn-cyber px-6 py-3 rounded-none flex-1 text-center">✎ EDIT NOTE</a>
-            <form method="POST" action="{{ route('notes.destroy', $note) }}" onsubmit="return confirm('Delete this note permanently?')">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn-danger px-6 py-3 rounded-none">✕ DELETE</button>
-            </form>
-        </div>
-    </div>
-</main>
+<div class="editor-shell read-shell"><div class="document-toolbar"><a class="back-link" href="{{ route('notes.index') }}">← Library</a><div class="reader-actions"><button class="button-secondary button-small" type="button" @click="focused = !focused" :aria-pressed="focused" x-text="focused ? 'Exit focus' : 'Focus mode'">Focus mode</button><a class="button button-small" href="{{ route('notes.edit', $note) }}">Edit note</a></div></div>
+<article class="surface reading-card"><div class="sample-tags mb-5"><span class="tag">{{ \App\Models\Note::TYPES[$note->type] ?? 'Free note' }}</span><span class="tag">{{ \App\Models\Note::STATUSES[$note->status] ?? 'Useful reference' }}</span>@if($note->notebook)<a class="tag" href="{{ route('notes.index', ['notebook' => $note->notebook_id]) }}">{{ $note->notebook->name }}</a>@endif</div>
+<p class="eyebrow">{{ $note->created_at?->format('j F Y') ?? 'Date unavailable' }}</p><h1 class="{{ $note->title ? 'reading-title' : 'sr-only' }}">{{ $note->title ?: 'Your note' }}</h1><div class="reading-divider"></div><div class="note-body">{{ $note->body }}</div>
+@if($note->code)<section class="code-example mt-7" x-data="{ copied: false, failed: false, wrap: false }"><div class="code-toolbar"><span>{{ $note->language ?: 'Code' }}</span><div class="reader-actions"><button type="button" @click="wrap = !wrap" :aria-pressed="wrap" x-text="wrap ? 'Unwrap' : 'Wrap'">Wrap</button><button type="button" @click="navigator.clipboard.writeText($refs.code.textContent).then(() => { copied = true; failed = false; setTimeout(() => copied = false, 2000) }).catch(() => { failed = true })" x-text="copied ? 'Copied!' : 'Copy code'">Copy code</button></div></div><pre :class="{ 'code-wrap': wrap }"><code x-ref="code">{{ $note->code }}</code></pre><p x-cloak x-show="failed" class="field-error p-3" role="status">Copy unavailable. Select the code and copy it manually.</p><span x-cloak x-show="copied" role="status" class="sr-only">Code copied</span></section>@endif
+@if($note->source_url)<p class="mt-6 text-sm"><a class="text-link break-all" href="{{ $note->source_url }}" target="_blank" rel="noopener noreferrer">Open source: {{ parse_url($note->source_url, PHP_URL_HOST) }} ↗</a></p>@endif
+@if($note->tags->isNotEmpty())<div class="sample-tags mt-6">@foreach($note->tags as $tag)<a class="tag" href="{{ route('notes.index', ['tag' => $tag->id]) }}">{{ $tag->name }}</a>@endforeach</div>@endif
+<div class="note-meta"><span>{{ mb_strlen($note->body) }} characters</span><span>{{ $note->updated_at ? 'Updated ' . $note->updated_at->format('j M Y') : 'Update date unavailable' }}</span></div></article>
+<form class="delete-note" method="POST" action="{{ route('notes.destroy', $note) }}" onsubmit="return confirm('Delete this note permanently?')">@csrf @method('DELETE')<button class="danger-link" type="submit">Delete note</button></form></div>
 @endsection
